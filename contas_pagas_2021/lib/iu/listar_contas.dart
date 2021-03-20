@@ -1,6 +1,8 @@
 
 import 'dart:io';
+import 'dart:typed_data';
 
+import 'package:card_settings/card_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
@@ -48,15 +50,97 @@ class _Listar_ContasState extends State<Listar_Contas> {
                           final conta = _contas[index];
                           Utils.imageFromBase64String(conta.imageFile);
 
-                          return Card(
+                          return
 
-                          shape: RoundedRectangleBorder(
+                          Card(
+                              clipBehavior: Clip.antiAlias,
+                              shadowColor: Colors.amber,
+                              shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
-                                side: BorderSide(color: Colors.redAccent, width: 2),
+                                side: BorderSide(color: Colors.grey, width: 2),
 
                           ),
                           child:
-                              Center(
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                          Padding(
+
+                            padding: const EdgeInsets.only(left: 150.0),
+
+                            child: ListTile(
+
+                              leading: Icon(Icons.attach_money_rounded),
+                                title: const Text('Conta', style: TextStyle(
+                                color: Colors.black87,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25
+                                ),),
+
+
+                            ),
+                          ),
+
+                              Divider(color:
+                              Colors.grey, height: 20,
+                                thickness: 1,
+                                indent: 0,
+                                endIndent: 0,),
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        width: 90.0,
+                                        height: 90.0,
+                                        child: Utils.imageFromBase64String(conta.imageFile),
+
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Data: ${Utils.formatarData(conta.dataHora, 1)}",
+                                            style: TextStyle(
+                                                fontSize: 18.0
+                                            ),),
+                                          Text("Valor: ${conta.valor.toString()}",
+                                            style: TextStyle(
+                                                fontSize: 18.0
+                                            ),),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              ButtonBar(
+                                children: [
+                                  TextButton(
+
+                                    onPressed: () {
+                                      // Perform some action
+                                    },
+                                    child: const Text('ACTION 1'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      // Perform some action
+                                    },
+                                    child: const Text('ACTION 2'),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+
+                              /*Center(
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +152,11 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                    ),
 
 
-
+                                    Divider(color:
+                                      Colors.grey, height: 20,
+                                      thickness: 1,
+                                      indent: 0,
+                                      endIndent: 0,),
 
                                     Padding(
                                       padding: const EdgeInsets.only(left: 150.0),
@@ -118,7 +206,7 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                     )
                                   ],
                                 ),
-                              )
+                              )*/
 
                           );
                           }

@@ -69,8 +69,8 @@ static const String IMG_KEY = 'IMAGE_KEY';
   static Image imageFromBase64String(String bytes){
     return Image.memory(
         base64Decode(bytes),
-        height: 200.0,
-        width: 250.0,
+        height: 250.0,
+        width: 300.0,
         fit: BoxFit.fill,
         alignment: Alignment.center,
 
