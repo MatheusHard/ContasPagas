@@ -57,6 +57,8 @@ flutter:
   - assets/camera_icon.png
   - assets/no_camera_icon.png
   - assets/historico.png
+  - assets/edit.png
+  - assets/del.png
 
 
   #  - images/a_dot_ham.jpeg

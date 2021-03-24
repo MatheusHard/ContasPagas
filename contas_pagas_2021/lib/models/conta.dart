@@ -11,7 +11,6 @@ class Conta{
 
 
   Conta(this._valor, this._dataHora, this._imageFile);
-  //Conta(this._valor, this._dataHora);
 
   Conta.fromJson(Map<String, dynamic> json):
         this._id = int.tryParse(json['id']) ?? 0,

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
+import 'package:pagamento_de_contas/models/tipo.dart';
 import 'package:pagamento_de_contas/utils/utils.dart';
 
 class Cadastrar_Conta extends StatefulWidget {
@@ -17,6 +18,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
   DBHelper _db = new DBHelper();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
+  List<Tipo> _listaTipos = List<Tipo>();
 
   File _imageFile;
   DateTime _dateTime;
@@ -51,9 +53,42 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
   @override
   void initState() {
+    getTiposContas();
     super.initState();
 
   }
+
+  /************DropDown Tipo de Conta************/
+
+  List<DropdownMenuItem<Tipo>> _dropdownMenuItemsTipos;
+  Tipo _selectedTipo = null;
+
+  List<DropdownMenuItem<Tipo>> buildDropdownMenuItemsTipos (List tipos){
+    List<DropdownMenuItem<Tipo>> items = List();
+    for(Tipo tipo in tipos){
+      items.add(
+          DropdownMenuItem(
+
+            value: tipo,
+            child: Center(
+              child: _validarTextoDropdownTipo(tipo.id, tipo.descricao_tipo),
+                //        child: _validarTextoDropdownCidade(cidade.id, cidade.descricao_cidade.toUpperCase() +"/"+ cidade.uf.descricao_uf.toUpperCase()),
+               ),
+            ),
+
+      );
+
+    }
+    return items;
+  }
+
+  onChangedDropdownItemTipo(Tipo selectedTipo){
+    setState(() {
+      _selectedTipo = selectedTipo;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,6 +117,40 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
                  )
                ),
+
+               /********DROP TIPOS*********/
+               Padding(
+                   padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
+                   child:
+
+                   InputDecorator(
+
+                     decoration: InputDecoration(
+
+                         border: InputBorder.none,
+                         icon: Icon(Icons.phonelink),
+                         labelText: "Tipos de Contas",
+                         labelStyle: TextStyle(
+                             color: Colors.black38,
+                             fontSize: 15.0,
+                             fontWeight: FontWeight.bold
+                         )
+                     ),
+                     child:
+                     DropdownButton(
+
+                         style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
+
+                         hint: Text("Selecione o Tipo de Conta"),
+                         isExpanded: true,
+                         value: _selectedTipo,
+                         items: _dropdownMenuItemsTipos,
+                         onChanged: onChangedDropdownItemTipo),
+                   )),
+
+               /*********FIM DROP**********/
+
+               SizedBox(height: 20.0,),
 
                Padding(
                  padding: const EdgeInsets.all(8.0),
@@ -118,6 +187,15 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                        });
                      });
                    },
+                   /*   if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+        _date.value = TextEditingValue(
+            text: formatter.format(
+                picked));//Use formatter to format selected date and assign to text field
+      });
+    return _date;
+  }      */
 
                    keyboardType: TextInputType.datetime,
                    controller: _dataController,
@@ -178,22 +256,35 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
     String file;
     setState(() {
-      _valorConta = double.parse(_valorController.text);
-//      _dataConta = Utils.getDataHora().toString();
-      file = Utils.base64String(_imageFile.readAsBytesSync()) ;
+      if (_imageFile != null){
+         /* && _dataController.value.toString() != ""
+          && _dataController.value.toString() != ""
+            */
+if(_valorController.value.text.toString() != "" && _valorController.value.text.toString() != null) {
+  _valorConta = double.parse(_valorController.text);
+  file = Utils.base64String(_imageFile.readAsBytesSync());
+  _db.insertConta(new Conta(_valorConta, _dateTime.toString(), file));
 
-     clearControllers();
+  clearControllers();
+  Utils.showDefaultSnackbar(_scaffoldKey, "Cadastro realizado com sucesso!!!");
+}else{
+  Utils.showDefaultSnackbar(_scaffoldKey, "Digite o valor!!! ");
 
+}
+    }else{
+    Utils.showDefaultSnackbar(_scaffoldKey, "Foto obrigatória!!! ");
+
+    }
     });
-    int res = await _db.insertConta(new Conta(_valorConta, _dateTime.toString(), file));
+    //int res = await _db.insertConta(new Conta(_valorConta, _dateTime.toString(), file));
 
 
 
-    if(res > 0){
+    /*if(res > 0){
     Utils.showDefaultSnackbar(_scaffoldKey, "Cadastro realizado com sucesso!!!");
     }else{
       Utils.showDefaultSnackbar(_scaffoldKey, "Não foi possível realizar o cadastro");
-    }
+    }*/
 
   }
 
@@ -201,5 +292,49 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
     _valorController.clear();
     _dataController.clear();
   }
+
+  getTiposContas(){
+
+    List<Tipo> listaTemporaria = [
+      Tipo(1, "ESCOLHA UMA OPÇÃO"),
+      Tipo(2, "Luz"),
+      Tipo(3, "Agua"),
+      Tipo(4, "Telefone"),
+      Tipo(5, "Internet")
+    ];
+
+    setState(() {
+      _listaTipos = listaTemporaria;
+      _dropdownMenuItemsTipos = buildDropdownMenuItemsTipos(_listaTipos);
+      _selectedTipo = _dropdownMenuItemsTipos[0].value;
+    });
+    listaTemporaria = null;
+
+  }
+
+
+  Text _validarTextoDropdownTipo(int id, String texto){
+
+    if(id == 1) {
+      texto = "ESCOLHA UMA OPÇÃO".toUpperCase();
+      return Text(
+        texto.toUpperCase(),
+        style: TextStyle(
+            fontWeight: FontWeight.w800,
+            color: Colors.red,
+            fontSize: 15.0
+        ),);
+
+    }else{
+      return Text(
+        texto.toUpperCase(),
+        style: TextStyle(
+            fontWeight: FontWeight.w800,
+            color: Colors.red,
+            fontSize: 15.0
+        ),);
+    }
+  }
+
 
 }

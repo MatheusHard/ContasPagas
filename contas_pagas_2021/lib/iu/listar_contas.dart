@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:card_settings/card_settings.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
@@ -53,7 +54,8 @@ class _Listar_ContasState extends State<Listar_Contas> {
                           return
 
                           Card(
-                              clipBehavior: Clip.antiAlias,
+                            color: Colors.grey[800],
+                            clipBehavior: Clip.antiAlias,
                               shadowColor: Colors.amber,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
@@ -106,13 +108,21 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+
+                                          Text("Tipo: ${conta.valor.toString()}",
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.white
+                                            ),),
                                           Text("Data: ${Utils.formatarData(conta.dataHora, 1)}",
                                             style: TextStyle(
-                                                fontSize: 18.0
+                                                fontSize: 20.0,
+                                                color: Colors.white
                                             ),),
                                           Text("Valor: ${conta.valor.toString()}",
                                             style: TextStyle(
-                                                fontSize: 18.0
+                                                fontSize: 20.0,
+                                                color: Colors.white
                                             ),),
                                         ],
                                       ),
@@ -122,18 +132,31 @@ class _Listar_ContasState extends State<Listar_Contas> {
                               ),
                               ButtonBar(
                                 children: [
-                                  TextButton(
 
-                                    onPressed: () {
-                                      // Perform some action
-                                    },
-                                    child: const Text('ACTION 1'),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15.0),
+                                    child: GestureDetector(
+
+                                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Listar_Contas())), // handle your image tap here
+                                      child:
+                                      Image.asset("assets/edit.png",
+                                        height: 40.0,
+                                        width: 40.0,
+                                      ),
+                                    ),
                                   ),
-                                  TextButton(
-                                    onPressed: () {
-                                      // Perform some action
-                                    },
-                                    child: const Text('ACTION 2'),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 15.0),
+                                    child: GestureDetector(
+
+                                      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Listar_Contas())), // handle your image tap here
+                                      child:
+                                      Image.asset("assets/del.png",
+                                        height: 40.0,
+                                        width: 40.0,
+                                      ),
+                                    ),
                                   ),
                                 ],
                               )
@@ -230,6 +253,7 @@ class _Listar_ContasState extends State<Listar_Contas> {
     }
   setState(() {
   _contas = contasTemporarias;
+  print(_contas);
   });
     print(_contas);
   contasTemporarias = null;
