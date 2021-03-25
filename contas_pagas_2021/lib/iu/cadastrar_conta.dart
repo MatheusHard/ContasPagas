@@ -26,6 +26,8 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
   final _dataController = TextEditingController();
 
   double _valorConta;
+  String _descricaoTipo;
+  int _idTipo;
   //String _dataConta = Utils.formatarData(Utils.getDataHora().toString(), 1);
 
 
@@ -53,7 +55,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
   @override
   void initState() {
-    getTiposContas();
+   // getTiposContas();
     super.initState();
 
   }
@@ -255,6 +257,10 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
   _cadastrarConta() async{
 
     String file;
+   // _idTipo = _selectedTipo.id;
+    _idTipo = 2;
+    print(_idTipo.toString());
+
     setState(() {
       if (_imageFile != null){
          /* && _dataController.value.toString() != ""
@@ -263,7 +269,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 if(_valorController.value.text.toString() != "" && _valorController.value.text.toString() != null) {
   _valorConta = double.parse(_valorController.text);
   file = Utils.base64String(_imageFile.readAsBytesSync());
-  _db.insertConta(new Conta(_valorConta, _dateTime.toString(), file));
+  _db.insertConta(new Conta(_valorConta, _dateTime.toString(), file, _idTipo, null));
 
   clearControllers();
   Utils.showDefaultSnackbar(_scaffoldKey, "Cadastro realizado com sucesso!!!");
@@ -293,7 +299,7 @@ if(_valorController.value.text.toString() != "" && _valorController.value.text.t
     _dataController.clear();
   }
 
-  getTiposContas(){
+  /*getTiposContas(){
 
     List<Tipo> listaTemporaria = [
       Tipo(1, "ESCOLHA UMA OPÇÃO"),
@@ -310,7 +316,7 @@ if(_valorController.value.text.toString() != "" && _valorController.value.text.t
     });
     listaTemporaria = null;
 
-  }
+  }*/
 
 
   Text _validarTextoDropdownTipo(int id, String texto){

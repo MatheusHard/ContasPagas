@@ -6,7 +6,7 @@ class ContaDataModel{
   static final String valor = "valor";
   static final String imageFile = "imageFile";
   static final String dataHora = "dataHora";
-
+  static final String tipoId = "tipo_id";
 
    static String queryCriarTabela = "";
 
@@ -17,7 +17,8 @@ class ContaDataModel{
     queryCriarTabela += id + " INTEGER PRIMARY KEY, ";
     queryCriarTabela += valor + " REAL, ";
     queryCriarTabela += imageFile + " BLOB, ";
-    queryCriarTabela += dataHora + " DATETIME ";
+    queryCriarTabela += dataHora + " DATETIME, ";
+    queryCriarTabela += tipoId + " INTEGER ";
     queryCriarTabela += ");";
 
     return queryCriarTabela;
@@ -37,5 +38,13 @@ class ContaDataModel{
    static String getTabela(){
     return TABELA;
   }
+
+  static String getAtributos(){
+     return "$TABELA.id, $TABELA.valor, $TABELA.imageFile, $TABELA.imageFile,$TABELA.dataHora";
+  }
 }
+/*queryCriarTabela += id + " INTEGER PRIMARY KEY, ";
+    queryCriarTabela += valor + " REAL, ";
+    queryCriarTabela += imageFile + " BLOB, ";
+    queryCriarTabela += dataHora + */
 

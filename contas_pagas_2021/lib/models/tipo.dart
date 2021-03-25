@@ -6,7 +6,7 @@ class Tipo {
 
 
 
-  Tipo(this._id, this._descricao_tipo);
+  Tipo(this._descricao_tipo);
 
   Tipo.fromJson(Map<String, dynamic> json):
         this._id = int.tryParse(json['id']) ?? 0,

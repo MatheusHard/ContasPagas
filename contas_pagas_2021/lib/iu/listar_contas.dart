@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:card_settings/card_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pagamento_de_contas/data_model/conta_data_model.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/utils/utils.dart';
@@ -109,7 +110,7 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
 
-                                          Text("Tipo: ${conta.valor.toString()}",
+                                          Text("Tipo: ${conta..toString()}",
                                             style: TextStyle(
                                                 fontSize: 20.0,
                                                 color: Colors.white
@@ -244,7 +245,7 @@ class _Listar_ContasState extends State<Listar_Contas> {
 
   _getContas() async {
 
-
+   print( ContaDataModel.getAtributos());
     List contasRecuperadas = await _db.getContas();
     List<Conta> contasTemporarias = List<Conta>();
     for(var item in contasRecuperadas){
@@ -253,9 +254,9 @@ class _Listar_ContasState extends State<Listar_Contas> {
     }
   setState(() {
   _contas = contasTemporarias;
-  print(_contas);
+ // print(_contas);
   });
-    print(_contas);
+   // print(_contas);
   contasTemporarias = null;
   }
 

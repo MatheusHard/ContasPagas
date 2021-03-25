@@ -1,5 +1,7 @@
 import 'package:pagamento_de_contas/data_model/conta_data_model.dart';
+import 'package:pagamento_de_contas/data_model/tipo_data_model.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
+import 'package:pagamento_de_contas/models/tipo.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
 import 'package:path/path.dart';
@@ -48,6 +50,7 @@ class DBHelper{
   void _onCreate(Database db, int version) async{
 
     await db.execute(ContaDataModel.criarTabela());
+    await db.execute(TipoDataModel.criarTabela());
 
   }
 
@@ -57,12 +60,45 @@ class DBHelper{
     return res.toInt();
   }
 
+  Future<int> insertTipo(Tipo tipoModel) async{
+    var dbTipo = await db;
+    int res = await dbTipo.insert(TipoDataModel.getTabela(), tipoModel.toMap());
+    return res.toInt();
+  }
+
+  Future<List> getTipos () async {
+
+    var dbTipo = await db;
+    var res = await dbTipo.rawQuery("SELECT ${TipoDataModel.getAtributos()} FROM ${TipoDataModel.getTabela()} ORDER BY ${TipoDataModel.descricao_tipo}");
+    return res.toList();
+  }
   Future<List> getContas () async {
 
     var dbCidade = await db;
-    var res = await dbCidade.rawQuery("SELECT * FROM ${ContaDataModel.getTabela()} ORDER BY ${ContaDataModel.dataHora} DESC");
+    var res = await dbCidade.rawQuery("SELECT ${ContaDataModel.getAtributos()} FROM ${ContaDataModel.getTabela()} ORDER BY ${ContaDataModel.dataHora} DESC");
     return res.toList();
   }
+
+  Future<List> getContasTipos () async {
+
+    var dbContaTipo = await db;
+    var res = await dbContaTipo.rawQuery("SELECT * FROM ${ContaDataModel.getTabela()} ${TipoDataModel.getTabela()} ORDER BY ${ContaDataModel.dataHora} DESC");
+    return res.toList();
+  }
+
+  /* Future<List> getCidadesUfs() async {
+// INNER JOIN $tabelaUf WHERE uf.id = cidade.cod_uf
+    var dbCidadeUf = await db;
+    var res = await dbCidadeUf.rawQuery("SELECT $tabelaCidade.$colunaId, $tabelaCidade.$colunaDescricao_cidade,"
+                                      " $tabelaCidade.$colunaUf_id, $tabelaUf.$colunaDescricao_Uf  FROM $tabelaCidade"
+                                      " INNER JOIN $tabelaUf WHERE $tabelaUf.$colunaIdUf = $tabelaCidade.$colunaUf_id"
+                                       " ORDER BY $tabelaCidade.$colunaId != 1, $tabelaCidade.$colunaDescricao_cidade");
+
+    return res.toList();
+  }
+*/
+
+
 }
 
 
