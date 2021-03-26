@@ -110,7 +110,7 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
 
-                                          Text("Tipo: ${conta..toString()}",
+                                          Text("Tipo: ${conta.tipo.descricao_tipo}",
                                             style: TextStyle(
                                                 fontSize: 20.0,
                                                 color: Colors.white
@@ -246,8 +246,9 @@ class _Listar_ContasState extends State<Listar_Contas> {
   _getContas() async {
 
    print( ContaDataModel.getAtributos());
-    List contasRecuperadas = await _db.getContas();
-    List<Conta> contasTemporarias = List<Conta>();
+    //List contasRecuperadas = await _db.getContas();
+   List contasRecuperadas = await _db.getContasTipos();
+   List<Conta> contasTemporarias = [];
     for(var item in contasRecuperadas){
       Conta c = Conta.fromMap(item);
       contasTemporarias.add(c);

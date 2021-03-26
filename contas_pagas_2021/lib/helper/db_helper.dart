@@ -90,20 +90,6 @@ class DBHelper{
 
     return res.toList();
   }
-
-  /* Future<List> getCidadesUfs() async {
-// INNER JOIN $tabelaUf WHERE uf.id = cidade.cod_uf
-    var dbCidadeUf = await db;
-    var res = await dbCidadeUf.rawQuery("SELECT $tabelaCidade.$colunaId, $tabelaCidade.$colunaDescricao_cidade,"
-                                      " $tabelaCidade.$colunaUf_id, $tabelaUf.$colunaDescricao_Uf  FROM $tabelaCidade"
-                                      " INNER JOIN $tabelaUf WHERE $tabelaUf.$colunaIdUf = $tabelaCidade.$colunaUf_id"
-                                       " ORDER BY $tabelaCidade.$colunaId != 1, $tabelaCidade.$colunaDescricao_cidade");
-
-    return res.toList();
-  }
-*/
-
-
 }
 
 

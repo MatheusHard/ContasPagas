@@ -25,11 +25,10 @@ class ContaDataModel{
   }
 
    static String dropDatabase(){
-    return   "DROP TABLE IF EXISTS "+ TABELA + ";";
+    return   "DROP TABLE IF EXISTS $TABELA;";
   }
 
    static String zerarTabela() {
-
 
     return "DELETE FROM $TABELA;";
   }

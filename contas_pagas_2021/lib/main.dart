@@ -20,10 +20,10 @@ void main() async{
     //print(a);
 
 
-  List list = await db.getContasTipos();
+ /* List list = await db.getContasTipos();
   for(var conta in list){
     print("Conta e Tipo: "+ conta.toString());
-  }
+  }*/
   //File i = Image.asset("assets/no_camera_icon.png");
   //var data3 = data.toString();
 
