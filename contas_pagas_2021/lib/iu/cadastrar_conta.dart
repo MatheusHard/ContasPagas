@@ -55,7 +55,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
   @override
   void initState() {
-   // getTiposContas();
+    getTiposContas();
     super.initState();
 
   }
@@ -257,8 +257,8 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
   _cadastrarConta() async{
 
     String file;
-   // _idTipo = _selectedTipo.id;
-    _idTipo = 2;
+    _idTipo = _selectedTipo.id;
+    //_idTipo = 2;
     print(_idTipo.toString());
 
     setState(() {
@@ -299,24 +299,24 @@ if(_valorController.value.text.toString() != "" && _valorController.value.text.t
     _dataController.clear();
   }
 
-  /*getTiposContas(){
+  getTiposContas() async{
 
-    List<Tipo> listaTemporaria = [
-      Tipo(1, "ESCOLHA UMA OPÇÃO"),
-      Tipo(2, "Luz"),
-      Tipo(3, "Agua"),
-      Tipo(4, "Telefone"),
-      Tipo(5, "Internet")
-    ];
-
+    DBHelper db = new DBHelper();
+    List tipos = await db.getTipos();
+    List<Tipo> listaTemporaria = [];
+    for(var tipo in tipos){
+      Tipo t = Tipo.fromMap(tipo);
+      listaTemporaria.add(t);
+    }
     setState(() {
       _listaTipos = listaTemporaria;
       _dropdownMenuItemsTipos = buildDropdownMenuItemsTipos(_listaTipos);
       _selectedTipo = _dropdownMenuItemsTipos[0].value;
     });
     listaTemporaria = null;
+    print(_listaTipos.toString());
 
-  }*/
+  }
 
 
   Text _validarTextoDropdownTipo(int id, String texto){

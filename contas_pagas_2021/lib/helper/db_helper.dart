@@ -82,7 +82,12 @@ class DBHelper{
   Future<List> getContasTipos () async {
 
     var dbContaTipo = await db;
-    var res = await dbContaTipo.rawQuery("SELECT * FROM ${ContaDataModel.getTabela()} ${TipoDataModel.getTabela()} ORDER BY ${ContaDataModel.dataHora} DESC");
+    var res = await dbContaTipo.rawQuery("SELECT ${ContaDataModel.getAtributos()}, ${TipoDataModel.getAtributos()} "
+                                         "FROM ${ContaDataModel.getTabela()} INNER JOIN ${TipoDataModel.getTabela()} "
+                                         "WHERE ${TipoDataModel.getTabela()}.${TipoDataModel.id} = "
+                                         "${ContaDataModel.getTabela()}.${ContaDataModel.tipoId} "
+                                         "ORDER BY ${ContaDataModel.dataHora} DESC");
+
     return res.toList();
   }
 

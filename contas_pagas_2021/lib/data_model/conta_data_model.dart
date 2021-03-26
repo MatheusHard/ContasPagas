@@ -30,9 +30,8 @@ class ContaDataModel{
 
    static String zerarTabela() {
 
-    //queryCriarTabela = "DELETE FROM " + TABELA +";";
 
-    return "0";// queryCriarTabela;
+    return "DELETE FROM $TABELA;";
   }
 
    static String getTabela(){
@@ -40,11 +39,7 @@ class ContaDataModel{
   }
 
   static String getAtributos(){
-     return "$TABELA.id, $TABELA.valor, $TABELA.imageFile, $TABELA.imageFile,$TABELA.dataHora";
+     return "$TABELA.id, $TABELA.valor, $TABELA.imageFile, $TABELA.dataHora, $TABELA.tipo_id";
   }
 }
-/*queryCriarTabela += id + " INTEGER PRIMARY KEY, ";
-    queryCriarTabela += valor + " REAL, ";
-    queryCriarTabela += imageFile + " BLOB, ";
-    queryCriarTabela += dataHora + */
 
