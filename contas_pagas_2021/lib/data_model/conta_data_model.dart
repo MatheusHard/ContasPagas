@@ -16,7 +16,7 @@ class ContaDataModel{
     queryCriarTabela += "(";
     queryCriarTabela += id + " INTEGER PRIMARY KEY, ";
     queryCriarTabela += valor + " REAL, ";
-    queryCriarTabela += imageFile + " BLOB, ";
+    queryCriarTabela += imageFile + " TEXT, ";
     queryCriarTabela += dataHora + " DATETIME, ";
     queryCriarTabela += tipoId + " INTEGER ";
     queryCriarTabela += ");";
@@ -39,6 +39,7 @@ class ContaDataModel{
 
   static String getAtributos(){
      return "$TABELA.id, $TABELA.valor, $TABELA.imageFile, $TABELA.dataHora, $TABELA.tipo_id";
+    //return "$TABELA.id, $TABELA.valor, $TABELA.dataHora, $TABELA.tipo_id";
   }
 }
 

@@ -34,7 +34,11 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
 
   _openCamera() async{
-    var picture = await ImagePicker.pickImage(source: ImageSource.camera);
+   var picture = await ImagePicker.pickImage(
+                                            source: ImageSource.camera,
+                                            maxHeight: 480,
+                                            maxWidth: 640,
+                                            imageQuality: 50 );
     this.setState((){
       _imageFile = picture;
     });
@@ -55,6 +59,11 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
   @override
   void initState() {
+    _db.insertTipo(new Tipo("Energia"));
+    _db.insertTipo(new Tipo("Agua"));
+    _db.insertTipo(new Tipo("Escolha uma Opção"));
+    _db.insertTipo(new Tipo("Internet"));
+
     getTiposContas();
     super.initState();
 

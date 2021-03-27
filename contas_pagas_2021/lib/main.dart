@@ -16,19 +16,16 @@ void main() async{
   //int a = await db.insertConta(new Conta(100.0,  data, i));
   //print(a);
 
-    //int a = await db.insertTipo(new Tipo("Internet"));
-    //print(a);
+   // int a = await db.insertTipo(new Tipo("Internet"));
+   /// print(a);
 
 
- /* List list = await db.getContasTipos();
+  List list = await db.getContasTipos();
   for(var conta in list){
     print("Conta e Tipo: "+ conta.toString());
-  }*/
+  }
   //File i = Image.asset("assets/no_camera_icon.png");
   //var data3 = data.toString();
-
-
-
 
 
   runApp(
