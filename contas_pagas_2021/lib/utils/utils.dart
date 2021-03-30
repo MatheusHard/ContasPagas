@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:pagamento_de_contas/models/tipo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
   class Utils {
@@ -66,6 +67,20 @@ static const String IMG_KEY = 'IMAGE_KEY';
     return base64Encode(bytes);
   }
 
+  static List<Tipo> getTiposPadrao(){
+
+      List<Tipo> list = [
+      Tipo("ESCOLHA UMA OPÇÃO"),
+      Tipo("Energia"),
+      Tipo("Agua"),
+      Tipo("Internet"),
+      Tipo("GESTOR MUNICIPAL")
+    ];
+
+    return list;
+
+
+  }
   static Image imageFromBase64String(String bytes){
     return Image.memory(
         base64Decode(bytes),

@@ -36,6 +36,8 @@ dev_dependencies:
 
   sqflite: ^1.3.0
   path_provider: ^1.6.5
+  image_cropper: ^1.4.0
+
 
 
 
@@ -59,6 +61,8 @@ flutter:
   - assets/historico.png
   - assets/edit.png
   - assets/del.png
+  - assets/icons_camera_100.png
+  - assets/icons_gallery_80.png
 
 
   #  - images/a_dot_ham.jpeg

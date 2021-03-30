@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pagamento_de_contas/data_model/conta_data_model.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
+import 'package:pagamento_de_contas/menu/menu_conta.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/utils/utils.dart';
 
@@ -73,7 +74,7 @@ class _Listar_ContasState extends State<Listar_Contas> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Padding(
@@ -109,7 +110,34 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                         ],
                                       ),
                                     ),
-                                 // ],
+
+                                 /******************MENU CARD*****************/
+
+                                    PopupMenuButton(
+                                      onSelected: _choiceAction,
+                                      itemBuilder: (BuildContext context){
+                                        return MenuItemConta.menuItens.map((e) {
+                                          return PopupMenuItem<MenuItemConta>(
+                                              value: e,
+                                              child:
+                                                  Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                    mainAxisSize: MainAxisSize.min,
+                                                 children: [
+                                                   Text(e.menuText),
+                                                    e.menuIcon
+                                                 ],
+                                                  )
+
+
+
+                                          );
+                                        }).toList();
+                                      },
+                                    )
+
+
+                                    // ],
                                // );
 
 
@@ -144,6 +172,16 @@ class _Listar_ContasState extends State<Listar_Contas> {
   contasTemporarias = null;
   }
 
+
+   _choiceAction(MenuItemConta value) {
+
+    if(value.id == 1){
+      print("ESCOLHEU EDITAR");
+      //print(c.dataHora);
+    }else if(value.id == 2){
+      print("ESCOLHEU EXCLUIR");
+    }
+  }
 }
 
 

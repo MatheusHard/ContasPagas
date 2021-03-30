@@ -2,18 +2,29 @@
 
 import 'package:flutter/material.dart';
 
-class MenuItem {
+class MenuItemConta {
 
-  String _menuVal;
-  Icon _iconVal;
+   String _menuText;
+   Icon _menuIcon;
+   int _id;
 
-  MenuItem(this._menuVal, this._iconVal);
+  MenuItemConta(this._id, this._menuText, this._menuIcon);
+
+  static List<MenuItemConta> menuItens = [
+    new MenuItemConta(1, "Editar", Icon(Icons.update_rounded)),
+    new MenuItemConta(2, "Excluir", Icon(Icons.delete_rounded))
+
+
+  ];
+
+
+   String get menuText => _menuText;
+   Icon get menuIcon => _menuIcon;
+   int get id => _id;
+
 }
 
-final List<MenuItem> menuItens = [
-  ///MenuItem("Atualizar", Icons.update_rounded);
- /// MenuItem("Deletor", Icons.remove_circle);
-];
+
 
 
 

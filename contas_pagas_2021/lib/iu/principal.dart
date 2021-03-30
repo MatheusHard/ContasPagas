@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pagamento_de_contas/iu/cadastrar_conta.dart';
 import 'package:pagamento_de_contas/iu/listar_contas.dart';
+import 'package:pagamento_de_contas/menu/menu_conta.dart';
 
 class Principal extends StatefulWidget {
   @override
@@ -15,6 +16,19 @@ class _PrincipalState extends State<Principal> {
         backgroundColor: Colors.redAccent,
         centerTitle: true,
         title: Text("Contas Pagas"),
+        actions: <Widget>[
+          PopupMenuButton(
+              itemBuilder: (BuildContext context){
+    return MenuItemConta.menuItens.map((e) {
+    return PopupMenuItem<MenuItemConta>(
+    value: e,
+    child: Text(e.menuText)
+    );
+    }).toList();
+    },
+    )
+
+        ],
       ),
       backgroundColor: Colors.white,
       body:
@@ -29,53 +43,29 @@ Padding(
       crossAxisCount: 2,
 
               childAspectRatio: 1.0,
-
               mainAxisSpacing: 4.0,
-
               crossAxisSpacing: 4.0,
-
               children: <Widget>[
 
-
-
                       GestureDetector(
-
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastrar_Conta())), // handle your image tap here
-
                         child:
-
                         Image.asset("assets/contas.png",
-
                           height: 50.0,
                          width: 50.0,
                         ),),
-
                       GestureDetector(
-
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Listar_Contas())), // handle your image tap here
                         child:
                         Image.asset("assets/historico.png",
-                          height: 100.0,
-                          width: 100.0,
+                          height: 50.0,
+                          width: 50.0,
                         ),
                       ),
                     ],
-
-
-
-
-
-
-
                 ),
-)
-
-
-          );
-          
-
-
-
+              )
+         );
 
   }
 }

@@ -18,12 +18,17 @@ void main() async{
 
    // int a = await db.insertTipo(new Tipo("Internet"));
    /// print(a);
+  ///
 
-
-  List list = await db.getContasTipos();
+  /*await db.insertTipo(Tipo("ESCOLHA UMA OPÇÃO"));
+  await db.insertTipo(Tipo("Energia"));
+  await db.insertTipo(Tipo("Agua"));
+  await db.insertTipo(Tipo("Internet"));
+*/
+  /*List list = await db.getContasTipos();
   for(var conta in list){
     print("Conta e Tipo: "+ conta.toString());
-  }
+  }*/
   //File i = Image.asset("assets/no_camera_icon.png");
   //var data3 = data.toString();
 
@@ -31,6 +36,7 @@ void main() async{
   runApp(
     MaterialApp(
       home: Principal(),
+      debugShowCheckedModeBanner: false,
     )
 
   );

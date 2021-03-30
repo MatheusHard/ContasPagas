@@ -2,6 +2,7 @@ import 'package:pagamento_de_contas/data_model/conta_data_model.dart';
 import 'package:pagamento_de_contas/data_model/tipo_data_model.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/models/tipo.dart';
+import 'package:pagamento_de_contas/utils/utils.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:io';
 import 'package:path/path.dart';
@@ -51,6 +52,9 @@ class DBHelper{
 
     await db.execute(ContaDataModel.criarTabela());
     await db.execute(TipoDataModel.criarTabela());
+
+
+
 
   }
 
