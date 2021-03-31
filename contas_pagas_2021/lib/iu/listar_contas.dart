@@ -2,10 +2,8 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:card_settings/card_settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pagamento_de_contas/data_model/conta_data_model.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/menu/menu_conta.dart';
 import 'package:pagamento_de_contas/models/conta.dart';

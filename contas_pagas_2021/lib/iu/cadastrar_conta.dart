@@ -8,7 +8,6 @@ import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/models/tipo.dart';
 import 'package:pagamento_de_contas/utils/utils.dart';
-import 'package:image_cropper/image_cropper.dart';
 
 
 class Cadastrar_Conta extends StatefulWidget {
@@ -20,9 +19,10 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
   DBHelper _db = new DBHelper();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<Tipo> _listaTipos = List<Tipo>();
+  List<Tipo> _listaTipos = [];
 
-  File _imageFile;
+  final _picker = ImagePicker();
+
 
   ///********/
   File _selectedFile;
@@ -35,7 +35,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
   double _valorConta;
   int _idTipo;
 
-  _openCamera( ) async{
+  /*_openCamera( ) async{
    var picture = await ImagePicker.pickImage(
                                             source: ImageSource.camera,
                                             maxHeight: 480,
@@ -45,7 +45,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
     this.setState((){
       _imageFile = picture;
     });
-  }
+  }*/
 
   /**************TESTES GET IMAGE*******************/
 
@@ -67,17 +67,35 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
     }
   }
 
-  _getImage(ImageSource source) async{
-    this.setState(() {
-      _inProcess = true;
+  Future _getImage(ImageSource source) async{
+    final pickedFile = await _picker.getImage(
 
-    });
-    File image = await ImagePicker.pickImage(
         source: source,
         maxHeight: 480,
         maxWidth: 640,
         imageQuality: 50 );
-    if(image != null){
+    this.setState(() {
+      if (pickedFile != null) {
+        _selectedFile = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+    /* File _image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });*/
+
+    /*if(image != null){
       File cropped = await ImageCropper.cropImage(
           sourcePath: image.path,
           aspectRatio: CropAspectRatio(
@@ -96,13 +114,13 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
       );
       this.setState(() {
         _selectedFile = cropped;
-        _inProcess = false;
+       // _inProcess = false;
       });
     } else {
       this.setState(() {
-        _inProcess = false;
+        //_inProcess = false;
       });
-    }
+    }*/
 
 
 
@@ -111,26 +129,6 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
   ///**************************************************/
 
-
-  Widget _decideImageView (){
-    if(_imageFile == null){
-      return
-        Row(children: [
-          Image.asset("assets/icons_camera_100.png",
-          height: 200.0,
-          width: 200.0,
-        ),
-          Image.asset("assets/icons_gallery_80.png",
-            height: 200.0,
-            width: 200.0,
-          )
-        ],);
-
-    }else{
-      return
-     Image.file(_imageFile, width: 200, height:  200,);
-    }
-  }
 
   @override
   void initState() {
@@ -153,7 +151,6 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
             value: tipo,
             child: Center(
               child: _validarTextoDropdownTipo(tipo.id, tipo.descricao_tipo),
-                //        child: _validarTextoDropdownCidade(cidade.id, cidade.descricao_cidade.toUpperCase() +"/"+ cidade.uf.descricao_uf.toUpperCase()),
                ),
             ),
 
@@ -175,6 +172,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+        backgroundColor: Colors.deepPurpleAccent,
         title: Text("Cadastrar Conta"),
         centerTitle: true,
       ),
@@ -190,7 +188,15 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                    mainAxisSize: MainAxisSize.min,
 
                    children: <Widget>[
-                     getImageWidget(),
+
+                     Padding(
+                       padding: const EdgeInsets.all(20.0),
+                       child: Text("Cadastre a Imagem da Conta", style:
+                         TextStyle(fontSize: 20.0, color: Colors.black26, fontWeight: FontWeight.bold),),
+                     ),
+
+                        getImageWidget(),
+
                     ///***********************/
                      Row(
                        mainAxisAlignment:  MainAxisAlignment.center,
@@ -205,8 +211,19 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                              _getImage(ImageSource.camera);
                            },
                          )),
+                         Expanded(child: 
+                         Text("OU")),
                          Expanded(child:
-                         GestureDetector(
+                         MaterialButton(
+                           child:   Image.asset("assets/icons_gallery_80.png",
+                             height: 200.0,
+                             width: 200.0,
+                           ),
+                           onPressed: (){
+                             _getImage(ImageSource.gallery);
+                           },
+                         )
+                           /*GestureDetector(
                            child:    Image.asset("assets/icons_gallery_80.png",
                              height: 200.0,
                              width: 200.0,
@@ -214,7 +231,9 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                            onTap: (){
                              _getImage(ImageSource.gallery);
                            },
-                         ))
+                         )*/
+
+                         )
                        ],
                      ),
                      ///*************************/

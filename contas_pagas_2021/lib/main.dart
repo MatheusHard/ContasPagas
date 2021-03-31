@@ -5,6 +5,7 @@ import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/iu/principal.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/models/tipo.dart';
+import 'package:pagamento_de_contas/splashscreens/splash_principal.dart';
 import 'package:pagamento_de_contas/utils/utils.dart';
 
 void main() async{
@@ -19,8 +20,8 @@ void main() async{
    // int a = await db.insertTipo(new Tipo("Internet"));
    /// print(a);
   ///
-
-  /*await db.insertTipo(Tipo("ESCOLHA UMA OPÇÃO"));
+/*
+  await db.insertTipo(Tipo("ESCOLHA UMA OPÇÃO"));
   await db.insertTipo(Tipo("Energia"));
   await db.insertTipo(Tipo("Agua"));
   await db.insertTipo(Tipo("Internet"));
@@ -35,7 +36,7 @@ void main() async{
 
   runApp(
     MaterialApp(
-      home: Principal(),
+      home: SplashScreenPrincipal(),
       debugShowCheckedModeBanner: false,
     )
 
