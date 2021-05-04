@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
+import 'package:pagamento_de_contas/iu/cadastrar_conta.dart';
 import 'package:pagamento_de_contas/menu/menu_conta.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/utils/utils.dart';
@@ -46,28 +47,20 @@ class _Listar_ContasState extends State<Listar_Contas> {
                     ListView.builder(
 
                           padding: const EdgeInsets.all(8.0),
-                        itemCount: _contas.length,
+                          itemCount: _contas.length,
                           itemBuilder: (context, index){
                           final conta = _contas[index];
-                         // Utils.imageFromBase64String(conta.imageFile);
 
                           return
 
                           Card(
-                            //color: Colors.grey[800],
                             clipBehavior: Clip.antiAlias,
-                              //shadowColor: Colors.amber,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15.0),
                                 side: BorderSide(color: Colors.grey, width: 1),
 
                           ),
                           child:
-                          /*Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            mainAxisSize: MainAxisSize.min,
-
-                            children: [*/
 
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -112,10 +105,12 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                  /******************MENU CARD*****************/
 
                                     PopupMenuButton(
-                                      onSelected: _choiceAction,
+                                      onSelected: (value){
+                                        _choiceAction(value, conta);
+                                    } ,
                                       itemBuilder: (BuildContext context){
                                         return MenuItemConta.menuItens.map((e) {
-                                          return PopupMenuItem<MenuItemConta>(
+                                          return PopupMenuItem(
                                               value: e,
                                               child:
                                                   Row(
@@ -126,23 +121,12 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                                     e.menuIcon
                                                  ],
                                                   )
-
-
-
                                           );
                                         }).toList();
                                       },
                                     )
-
-
-                                    // ],
-                               // );
-
-
                             ],
                           ),
-
-
 
                           ));
                           }
@@ -170,12 +154,15 @@ class _Listar_ContasState extends State<Listar_Contas> {
   contasTemporarias = null;
   }
 
-
-   _choiceAction(MenuItemConta value) {
+   _choiceAction(MenuItemConta value, Conta c) {
 
     if(value.id == 1){
       print("ESCOLHEU EDITAR");
-      //print(c.dataHora);
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Cadastrar_Conta(conta: c)),
+      );
     }else if(value.id == 2){
       print("ESCOLHEU EXCLUIR");
     }

@@ -11,26 +11,44 @@ import 'package:pagamento_de_contas/utils/utils.dart';
 
 
 class Cadastrar_Conta extends StatefulWidget {
+
+  /****PASSAR OBJETO PELO CONSTRUTOR*****/
+  final Conta conta;
+  Cadastrar_Conta({Key key, @required this.conta}): super(key: key);
+
   @override
-  _Cadastrar_ContaState createState() => _Cadastrar_ContaState();
+  _Cadastrar_ContaState createState() => _Cadastrar_ContaState(conta);
 }
 
 class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
+  File _selectedFile;
+  Conta _conta;
   DBHelper _db = new DBHelper();
   var _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<Tipo> _listaTipos = [];
-
+  final _valorController = TextEditingController();
+  final _dataController = TextEditingController();
   final _picker = ImagePicker();
 
+/********RECEBENDO DO CONTRUTOR************/
 
-  ///********/
-  File _selectedFile;
+  _Cadastrar_ContaState(Conta conta){
+  this._conta = conta;
+  if(_conta != null){
+    _valorController.text = _conta.valor.toString();
+    //_dataController.text = Utils.formatarData(_dataController.text = _conta.dataHora, 1) ;
+    _dataController.text = _conta.dataHora;
+    _dateTime = DateTime.parse(_conta.dataHora);
+  }
+   // _selectedFile = Utils.imageFromBase64String(conta.imageFile);
+
+
+  }
+
   bool _inProcess = false;
 
   DateTime _dateTime;
-  final _valorController = TextEditingController();
-  final _dataController = TextEditingController();
 
   double _valorConta;
   int _idTipo;
@@ -203,7 +221,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                        children: [
                          Expanded(child:
                          GestureDetector(
-                           child:    Image.asset("assets/icons_camera_100.png",
+                           child:    Image.asset("assets/images/icons_camera_100.png",
                              height: 200.0,
                              width: 200.0,
                            ),
@@ -215,7 +233,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                          Text("OU")),
                          Expanded(child:
                          MaterialButton(
-                           child:   Image.asset("assets/icons_gallery_80.png",
+                           child:   Image.asset("assets/images/icons_gallery_80.png",
                              height: 200.0,
                              width: 200.0,
                            ),
@@ -345,7 +363,9 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                              fontStyle: FontStyle.italic,
                            ),),
                            onPressed: () {
-                             _cadastrarConta();
+                            //if(_formKey.currentState.validate()) {
+                              _cadastrarConta();
+                         //   }
                            } ,
                            textColor: Colors.white,
                            color: Colors.black12,

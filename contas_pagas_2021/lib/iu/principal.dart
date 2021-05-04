@@ -48,7 +48,7 @@ Padding(
               children: <Widget>[
 
                       GestureDetector(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastrar_Conta())), // handle your image tap here
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastrar_Conta(conta: null,))), // handle your image tap here
                         child:
                         Image.asset("assets/contas.png",
                           height: 50.0,
