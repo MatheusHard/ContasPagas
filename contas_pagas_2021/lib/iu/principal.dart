@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pagamento_de_contas/core/app_images.dart';
+import 'package:pagamento_de_contas/home/widgets/appbar/app_bar_widget.dart';
 import 'package:pagamento_de_contas/iu/cadastrar_conta.dart';
 import 'package:pagamento_de_contas/iu/listar_contas.dart';
 import 'package:pagamento_de_contas/menu/menu_conta.dart';
@@ -12,24 +14,7 @@ class _PrincipalState extends State<Principal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
-        centerTitle: true,
-        title: Text("Contas Pagas"),
-        actions: <Widget>[
-          PopupMenuButton(
-              itemBuilder: (BuildContext context){
-    return MenuItemConta.menuItens.map((e) {
-    return PopupMenuItem<MenuItemConta>(
-    value: e,
-    child: Text(e.menuText)
-    );
-    }).toList();
-    },
-    )
-
-        ],
-      ),
+      appBar: AppBarWidget(),
       backgroundColor: Colors.white,
       body:
      // Padding(
@@ -50,14 +35,14 @@ Padding(
                       GestureDetector(
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastrar_Conta(conta: null,))), // handle your image tap here
                         child:
-                        Image.asset("assets/contas.png",
+                        Image.asset("assets/images/contas.png",
                           height: 50.0,
                          width: 50.0,
                         ),),
                       GestureDetector(
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Listar_Contas())), // handle your image tap here
                         child:
-                        Image.asset("assets/historico.png",
+                        Image.asset("assets/images/historico.png",
                           height: 50.0,
                           width: 50.0,
                         ),

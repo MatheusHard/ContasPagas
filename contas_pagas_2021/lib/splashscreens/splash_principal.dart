@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:pagamento_de_contas/core/app_gradients.dart';
 import 'package:pagamento_de_contas/iu/principal.dart';
 
 class SplashScreenPrincipal extends StatefulWidget {
@@ -25,8 +26,10 @@ class _SplashScreenPrincipalState extends State<SplashScreenPrincipal> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.deepPurpleAccent,
-        padding: EdgeInsets.all(60),
+
+        decoration: BoxDecoration(
+          gradient: AppGradients.linear,
+        ),
         child: Center(
           child: SpinKitFadingCircle(
             color: Colors.white70,

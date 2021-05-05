@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pagamento_de_contas/core/app_images.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/models/tipo.dart';
@@ -77,7 +78,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
       );
     }else{
       return Image.asset(
-        "assets/no_camera_icon.png",
+        AppImages.no_camera_icon,
         width: 250,
         height: 250,
         fit: BoxFit.cover,
@@ -203,7 +204,6 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
                  child: Column(
                    mainAxisAlignment: MainAxisAlignment.center,
-                   mainAxisSize: MainAxisSize.min,
 
                    children: <Widget>[
 
@@ -216,43 +216,46 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                         getImageWidget(),
 
                     ///***********************/
-                     Row(
-                       mainAxisAlignment:  MainAxisAlignment.center,
-                       children: [
-                         Expanded(child:
-                         GestureDetector(
-                           child:    Image.asset("assets/images/icons_camera_100.png",
-                             height: 200.0,
-                             width: 200.0,
-                           ),
-                           onTap: (){
-                             _getImage(ImageSource.camera);
-                           },
-                         )),
-                         Expanded(child: 
-                         Text("OU")),
-                         Expanded(child:
-                         MaterialButton(
-                           child:   Image.asset("assets/images/icons_gallery_80.png",
-                             height: 200.0,
-                             width: 200.0,
-                           ),
-                           onPressed: (){
-                             _getImage(ImageSource.gallery);
-                           },
-                         )
-                           /*GestureDetector(
-                           child:    Image.asset("assets/icons_gallery_80.png",
-                             height: 200.0,
-                             width: 200.0,
-                           ),
-                           onTap: (){
-                             _getImage(ImageSource.gallery);
-                           },
-                         )*/
+                     Padding(
+                       padding: const EdgeInsets.symmetric(horizontal: 20),
+                       child: Row(
+                         mainAxisAlignment:  MainAxisAlignment.spaceBetween,
 
-                         )
-                       ],
+                         children: [
+                           Expanded(
+                               child:
+                           GestureDetector(
+                             child:    Image.asset(AppImages.icons_camera_100,
+                               height: 200.0,
+                               width: 200.0,
+                             ),
+                             onTap: (){
+                               _getImage(ImageSource.camera);
+                             },
+                           )),
+                           Expanded(child:
+                           MaterialButton(
+                             child:   Image.asset(AppImages.icons_gallery_80,
+                               height: 200.0,
+                               width: 200.0,
+                             ),
+                             onPressed: (){
+                               _getImage(ImageSource.gallery);
+                             },
+                           )
+                             /*GestureDetector(
+                             child:    Image.asset("assets/icons_gallery_80.png",
+                               height: 200.0,
+                               width: 200.0,
+                             ),
+                             onTap: (){
+                               _getImage(ImageSource.gallery);
+                             },
+                           )*/
+
+                           )
+                         ],
+                       ),
                      ),
                      ///*************************/
                   /*   GestureDetector(
