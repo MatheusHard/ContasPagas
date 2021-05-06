@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pagamento_de_contas/utils/core/app_colors.dart';
 import 'package:pagamento_de_contas/utils/core/app_images.dart';
 import 'package:pagamento_de_contas/utils/core/app_text_styles.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
@@ -24,6 +25,8 @@ class Cadastrar_Conta extends StatefulWidget {
 
 class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
+  FocusNode _myFocusNode;
+  FocusNode _myFocusNode_2;
   File _selectedFile;
   Conta _conta;
   DBHelper _db = new DBHelper();
@@ -55,19 +58,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
   double _valorConta;
   int _idTipo;
 
-  /*_openCamera( ) async{
-   var picture = await ImagePicker.pickImage(
-                                            source: ImageSource.camera,
-                                            maxHeight: 480,
-                                            maxWidth: 640,
-                                            imageQuality: 50 );
-
-    this.setState((){
-      _imageFile = picture;
-    });
-  }*/
-
-  /**************TESTES GET IMAGE*******************/
+   /**************TESTES GET IMAGE*******************/
 
   Widget getImageWidget(){
     if(_selectedFile != null){
@@ -153,6 +144,8 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
   @override
   void initState() {
     getTiposContas();
+    _myFocusNode = FocusNode();
+    _myFocusNode_2 = FocusNode();
     super.initState();
 
   }
@@ -199,220 +192,201 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
        body: Stack(
          children: [
-           Center(
+           Padding(
+             padding: const EdgeInsets.symmetric(horizontal: 25),
+             child: Center(
 
-               child:  SingleChildScrollView(
+                 child:  SingleChildScrollView(
 
-                 child: Column(
-                   mainAxisAlignment: MainAxisAlignment.center,
+                   child: Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
 
-                   children: <Widget>[
+                     children: <Widget>[
 
-                     Padding(
-                       padding: const EdgeInsets.all(20.0),
-                       child: Text("Cadastre a Imagem da Conta", style:
-                         TextStyle(fontSize: 20.0, color: Colors.black26, fontWeight: FontWeight.bold),),
-                     ),
+                      Container(
+                        decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.border),
+                        borderRadius: BorderRadius.circular(20)),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 15, top: 20),
+                              child: Text("Cadastre a Imagem da Conta",
+                                  style: AppTextStyles.heading25),
+                            ),
 
-                        getImageWidget(),
+                            getImageWidget(),
 
-                    ///***********************/
-                     Padding(
-                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                       child: Row(
-                         mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                            ///***********************/
+                            Row(
+                              mainAxisAlignment:  MainAxisAlignment.spaceBetween,
 
-                         children: [
-                           Expanded(
-                               child:
-                           GestureDetector(
-                             child:    Image.asset(AppImages.icons_camera_100,
-                               height: 200.0,
-                               width: 200.0,
-                             ),
-                             onTap: (){
-                               _getImage(ImageSource.camera);
-                             },
-                           )),
-                           Expanded(child:
-                           MaterialButton(
-                             child:   Image.asset(AppImages.icons_gallery_80,
-                               height: 200.0,
-                               width: 200.0,
-                             ),
-                             onPressed: (){
-                               _getImage(ImageSource.gallery);
-                             },
-                           )
-                             /*GestureDetector(
-                             child:    Image.asset("assets/icons_gallery_80.png",
-                               height: 200.0,
-                               width: 200.0,
-                             ),
-                             onTap: (){
-                               _getImage(ImageSource.gallery);
-                             },
-                           )*/
-
-                           )
-                         ],
-                       ),
-                     ),
-
-                     ///*************************/
-                  /*   GestureDetector(
-                         onTap: () {
-                           _openCamera();
-                         },
-                         child:
-
-                         ClipRRect(
-                           child: _decideImageView(),
-                           borderRadius: BorderRadius.circular(10.0),
-
-                         )
-                     ),*/
-
-                     /********DROP TIPOS*********/
-
-                     Padding(
-                         padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
-                         child:
-                         InputDecorator(
-
-                           decoration: InputDecoration(
-                               border: InputBorder.none,
-                               icon: Icon(Icons.phonelink),
-                               labelText: "Tipos de Contas",
-                               labelStyle: TextStyle(
-                                   color: Colors.black38,
-                                   fontSize: 15.0,
-                                   fontWeight: FontWeight.bold
-                               )
-                           ),
-                           child:
-                           DropdownButton(
-
-                               style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
-                               hint: Text("Selecione o Tipo de Conta"),
-                               isExpanded: true,
-                               value: _selectedTipo,
-                               items: _dropdownMenuItemsTipos,
-                               onChanged: onChangedDropdownItemTipo),
-                         )),
-
-                     /*********FIM DROP**********/
-
-                     SizedBox(height: 20.0,),
-
-                     /*************VALOR*************/
-
-                     Padding(
-                       padding: const EdgeInsets.all(8.0),
-                       child: TextField(
-
-                         keyboardType: TextInputType.number,
-                         controller: _valorController,
-
-                         decoration: InputDecoration(
-                             border: OutlineInputBorder(),
-                             hintText: 'Valor',
-                             icon: Icon(Icons.attach_money, color: Colors.greenAccent,)
-                         ),
-                       ),
-                     ),
-
-                     /*************DATA_HORA*************/
-                     Padding(
-                       padding: const EdgeInsets.all(8.0),
-                       child: TextField(
-                         readOnly: true,
-
-                         onTap: (){
-                           FocusScope.of(context).requestFocus(new FocusNode());
-
-                           showDatePicker(
-                               context: context,
-                               initialDate: DateTime.now(),
-                               firstDate: DateTime(2000),
-                               lastDate: DateTime(2030)
-                           ).then((date){
-                             setState(() {
-                               _dateTime = date;
-                               _dataController.value = TextEditingValue(text:  Utils.formatarData(_dateTime.toString(),1) );
-
-                             });
-                           });
-                         },
-
-
-                         keyboardType: TextInputType.datetime,
-                         controller: _dataController,
-                         decoration: InputDecoration(
-                           icon: Icon(Icons.date_range),
-                           border: OutlineInputBorder(),
-                           hintText :  "Digite o vecimento",
-                         ),
-                       ),
-
-                     ),
-
-                     /*********BUTTON CADASTRAR*********/
-
-                     Padding(
-                       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                       child: Center(
-                         child: ElevatedButton(
-                          onPressed: () {
-                            _cadastrarConta();
-                       },
-                        style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20))),
-                         child: Ink(
-
-                              decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [Colors.red, Colors.yellow]),
-                              borderRadius: BorderRadius.circular(20)),
-                                child:
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.save_rounded),
-                                  Container(
-                                    width: 200,
-                                    height: 50,
-                                    alignment: Alignment.center,
+                              children: [
+                                Expanded(
                                     child:
+                                    GestureDetector(
+                                      child:    Image.asset(AppImages.icons_camera_100,
+                                        height: 200.0,
+                                        width: 200.0,
+                                      ),
+                                      onTap: (){
+                                        _getImage(ImageSource.camera);
+                                      },
+                                    )),
+                                Expanded(
+                                    child:
+                                    MaterialButton(
+                                      child:   Image.asset(AppImages.icons_gallery_80,
+                                        height: 200.0,
+                                        width: 200.0,
+                                      ),
+                                      onPressed: (){
+                                        _getImage(ImageSource.gallery);
+                                      },
+                                    )
 
-                                    Text(
-                                      'Cadastrar',
-                                      style: AppTextStyles.titleBold,
-                                    ),
+                                )
+                              ],
+
+                            ),
+                          ],
+                        ),
+                      ),
 
 
-                                  ),
-                                ],)
-
-                    ),
-                   ),
-                 ),
-                     ),
 
 
-                    /* (_inProcess)?Container(
-                       color: Colors.white,
-                       height: MediaQuery.of(context).size.height * 0.95,
-                       child: Center(
-                         child: CircularProgressIndicator(),
+                       /********DROP TIPOS*********/
+
+                           Padding(
+                             padding: const EdgeInsets.symmetric(horizontal: 10),
+                             child: InputDecorator(
+                               decoration: InputDecoration(
+                                   border: InputBorder.none,
+                                   icon: Icon(Icons.phonelink),
+                                   labelText: "Tipos de Contas",
+                                   labelStyle: AppTextStyles.heading15
+                               ),
+                               child:
+                               DropdownButton(
+
+                                   style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
+                                   hint: Text("Selecione o Tipo de Conta"),
+                                   isExpanded: true,
+                                   value: _selectedTipo,
+                                   items: _dropdownMenuItemsTipos,
+                                   onChanged: onChangedDropdownItemTipo),
+                             ),
+                           ),
+
+                       /*************VALOR*************/
+
+                       Padding(
+                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                         child: TextField(
+
+                           keyboardType: TextInputType.number,
+                           controller: _valorController,
+                           focusNode: _myFocusNode,
+                           decoration: InputDecoration(
+                               hintText: 'Valor',
+                               icon: Icon(Icons.attach_money, color: Colors.green,)
+                           ),
+                         ),
                        ),
-                     ):Center()*/
-                   ],
-                 ),
 
-               ),
-            )
+                       /*************DATA_HORA*************/
+                       Padding(
+                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                         child: TextField(
+                           readOnly: true,
+
+                           onTap: (){
+                             FocusScope.of(context).requestFocus(new FocusNode());
+
+                             showDatePicker(
+                                 context: context,
+                                 initialDate: DateTime.now(),
+                                 firstDate: DateTime(2000),
+                                 lastDate: DateTime(2030)
+                             ).then((date){
+                               setState(() {
+                                 _dateTime = date;
+                                 _dataController.value = TextEditingValue(text:  Utils.formatarData(_dateTime.toString(),1) );
+
+                               });
+                             });
+                           },
+
+
+                           keyboardType: TextInputType.datetime,
+                           controller: _dataController,
+                           decoration: InputDecoration(
+                             icon: Icon(Icons.date_range),
+                             hintText :  "Digite o vecimento",
+                           ),
+                         ),
+
+                       ),
+                      SizedBox(width: 30,height: 30,),
+
+                       /*********BUTTON CADASTRAR*********/
+
+                       Padding(
+                         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                         child: Center(
+                           child: ElevatedButton(
+                            onPressed: () {
+                              _cadastrarConta();
+                         },
+                          style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                           child: Ink(
+
+                                decoration: BoxDecoration(
+                                gradient: LinearGradient(colors: [Colors.red, Colors.yellow]),
+                                borderRadius: BorderRadius.circular(20)),
+                                  child:
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.save_rounded),
+                                    Container(
+                                      width: 200,
+                                      height: 50,
+                                      alignment: Alignment.center,
+                                      child:
+
+                                      Text(
+                                        'Cadastrar',
+                                        style: AppTextStyles.titleBold,
+                                      ),
+
+
+                                    ),
+                                  ],)
+
+                      ),
+                     ),
+                   ),
+                       ),
+
+
+                      /* (_inProcess)?Container(
+                         color: Colors.white,
+                         height: MediaQuery.of(context).size.height * 0.95,
+                         child: Center(
+                           child: CircularProgressIndicator(),
+                         ),
+                       ):Center()*/
+                     ],
+                   ),
+
+                 ),
+              ),
+           )
          ],
        ),
     );
