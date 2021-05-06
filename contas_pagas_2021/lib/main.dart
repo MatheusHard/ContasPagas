@@ -6,7 +6,7 @@ import 'package:pagamento_de_contas/iu/principal.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/models/tipo.dart';
 import 'package:pagamento_de_contas/splashscreens/splash_principal.dart';
-import 'package:pagamento_de_contas/utils/utils.dart';
+import 'package:pagamento_de_contas/utils/metods/utils.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

@@ -4,13 +4,14 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pagamento_de_contas/core/app_colors.dart';
-import 'package:pagamento_de_contas/core/app_text_styles.dart';
+import 'package:pagamento_de_contas/utils/core/app_colors.dart';
+import 'package:pagamento_de_contas/utils/core/app_gradients.dart';
+import 'package:pagamento_de_contas/utils/core/app_text_styles.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/iu/cadastrar_conta.dart';
 import 'package:pagamento_de_contas/menu/menu_conta.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
-import 'package:pagamento_de_contas/utils/utils.dart';
+import 'package:pagamento_de_contas/utils/metods/utils.dart';
 
 class Listar_Contas extends StatefulWidget {
   @override
@@ -19,9 +20,8 @@ class Listar_Contas extends StatefulWidget {
 
 class _Listar_ContasState extends State<Listar_Contas> {
 
-  Future<File> _imageFile;
   Image image;
-  List<Conta> _contas = List<Conta>();
+  List<Conta> _contas = [];
   DBHelper _db = new DBHelper();
 
   @override
@@ -45,7 +45,6 @@ class _Listar_ContasState extends State<Listar_Contas> {
 
                 Expanded(
                     child:
-
                     ListView.builder(
 
                           padding: const EdgeInsets.all(8.0),
@@ -53,17 +52,15 @@ class _Listar_ContasState extends State<Listar_Contas> {
                           itemBuilder: (context, index){
                           final conta = _contas[index];
 
-                          return
-
-                          Padding(
+                          return Padding(
                             padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 8.0, bottom: 8.0),
                             child: Container(
                               height: 136,
                                 decoration: BoxDecoration(
+                                  gradient: AppGradients.nuvem,
                                   border: Border.all(
                                     color: AppColors.border
                                   ),
-                                  color: AppColors.lightRed,
                                 borderRadius: BorderRadius.circular(10),
                                 ),
                                 child:

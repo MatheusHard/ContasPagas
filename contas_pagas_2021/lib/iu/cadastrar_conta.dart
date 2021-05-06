@@ -4,11 +4,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pagamento_de_contas/core/app_images.dart';
+import 'package:pagamento_de_contas/utils/core/app_images.dart';
+import 'package:pagamento_de_contas/utils/core/app_text_styles.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
 import 'package:pagamento_de_contas/models/conta.dart';
 import 'package:pagamento_de_contas/models/tipo.dart';
-import 'package:pagamento_de_contas/utils/utils.dart';
+import 'package:pagamento_de_contas/utils/metods/utils.dart';
 
 
 class Cadastrar_Conta extends StatefulWidget {
@@ -159,7 +160,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
   /************DropDown Tipo de Conta************/
 
   List<DropdownMenuItem<Tipo>> _dropdownMenuItemsTipos;
-  Tipo _selectedTipo = null;
+  Tipo _selectedTipo;
 
   List<DropdownMenuItem<Tipo>> buildDropdownMenuItemsTipos (List tipos){
     List<DropdownMenuItem<Tipo>> items = [];
@@ -257,6 +258,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                          ],
                        ),
                      ),
+
                      ///*************************/
                   /*   GestureDetector(
                          onTap: () {
@@ -272,14 +274,13 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                      ),*/
 
                      /********DROP TIPOS*********/
+
                      Padding(
                          padding: const EdgeInsets.fromLTRB(28, 0, 28, 0),
                          child:
-
                          InputDecorator(
 
                            decoration: InputDecoration(
-
                                border: InputBorder.none,
                                icon: Icon(Icons.phonelink),
                                labelText: "Tipos de Contas",
@@ -293,7 +294,6 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                            DropdownButton(
 
                                style: TextStyle(inherit: false, color: Colors.white, decorationColor: Colors.white),
-
                                hint: Text("Selecione o Tipo de Conta"),
                                isExpanded: true,
                                value: _selectedTipo,
@@ -304,6 +304,8 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                      /*********FIM DROP**********/
 
                      SizedBox(height: 20.0,),
+
+                     /*************VALOR*************/
 
                      Padding(
                        padding: const EdgeInsets.all(8.0),
@@ -319,6 +321,8 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                          ),
                        ),
                      ),
+
+                     /*************DATA_HORA*************/
                      Padding(
                        padding: const EdgeInsets.all(8.0),
                        child: TextField(
@@ -348,34 +352,55 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                            icon: Icon(Icons.date_range),
                            border: OutlineInputBorder(),
                            hintText :  "Digite o vecimento",
-
-                           //icon:
                          ),
                        ),
 
                      ),
+
+                     /*********BUTTON CADASTRAR*********/
 
                      Padding(
-                       padding: const EdgeInsets.all(8.0),
-                       child: ButtonTheme(
-                         minWidth: double.infinity,
-                         child: RaisedButton(
+                       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                       child: Center(
+                         child: ElevatedButton(
+                          onPressed: () {
+                            _cadastrarConta();
+                       },
+                        style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20))),
+                         child: Ink(
 
-                           child: Text("SALVAR", style: TextStyle(
-                             fontSize: 20.0,
-                             fontStyle: FontStyle.italic,
-                           ),),
-                           onPressed: () {
-                            //if(_formKey.currentState.validate()) {
-                              _cadastrarConta();
-                         //   }
-                           } ,
-                           textColor: Colors.white,
-                           color: Colors.black12,
+                              decoration: BoxDecoration(
+                              gradient: LinearGradient(colors: [Colors.red, Colors.yellow]),
+                              borderRadius: BorderRadius.circular(20)),
+                                child:
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(Icons.save_rounded),
+                                  Container(
+                                    width: 200,
+                                    height: 50,
+                                    alignment: Alignment.center,
+                                    child:
 
-                         ),
-                       ),
+                                    Text(
+                                      'Cadastrar',
+                                      style: AppTextStyles.titleBold,
+                                    ),
+
+
+                                  ),
+                                ],)
+
+                    ),
+                   ),
+                 ),
                      ),
+
+
                     /* (_inProcess)?Container(
                        color: Colors.white,
                        height: MediaQuery.of(context).size.height * 0.95,
@@ -387,11 +412,9 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                  ),
 
                ),
-
-           )
+            )
          ],
        ),
-
     );
 
 

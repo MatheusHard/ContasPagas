@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pagamento_de_contas/core/app_gradients.dart';
-import 'package:pagamento_de_contas/core/app_text_styles.dart';
+import 'package:pagamento_de_contas/utils/core/app_gradients.dart';
+import 'package:pagamento_de_contas/utils/core/app_text_styles.dart';
 
 class AppBarWidget extends PreferredSize {
 AppBarWidget():super(

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:pagamento_de_contas/core/app_gradients.dart';
+import 'package:pagamento_de_contas/utils/core/app_gradients.dart';
 import 'package:pagamento_de_contas/iu/principal.dart';
 
 class SplashScreenPrincipal extends StatefulWidget {
