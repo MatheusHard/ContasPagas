@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pagamento_de_contas/home/widgets/cards/card_inicio.dart';
 import 'package:pagamento_de_contas/utils/core/app_images.dart';
 import 'package:pagamento_de_contas/home/widgets/appbar/app_bar_widget.dart';
 import 'package:pagamento_de_contas/iu/cadastrar_conta.dart';
@@ -52,6 +53,8 @@ Padding(
                         )
 
                       ),
+
+                      Card_Principal()
                     ],
                 ),
               )
