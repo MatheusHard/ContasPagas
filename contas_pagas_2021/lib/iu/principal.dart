@@ -23,43 +23,21 @@ class _PrincipalState extends State<Principal> {
         //child:
 
 Padding(
-  padding: const EdgeInsets.all(50.0),
+  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 35),
   child:   GridView.count(
 
               crossAxisCount: 2,
               childAspectRatio: 1.0,
-              mainAxisSpacing: 4.0,
-              crossAxisSpacing: 4.0,
+              mainAxisSpacing: 6.0,
+              crossAxisSpacing: 6.0,
 
               children: <Widget>[
 
-                      GestureDetector(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastrar_Conta(conta: null,))), // handle your image tap here
-                        child:
-                        Image.asset("assets/images/contas.png",
-                          height: 50.0,
-                         width: 50.0,
-                        ),),
-                      GestureDetector(
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Listar_Contas())), // handle your image tap here
-                        child:
-                            Container(
-                              color: Colors.green,
-                              child:
-
-                            Image.asset("assets/images/historico.png",
-                              height: 50.0,
-                              width: 50.0,
-                            ),
-                        )
-
-                      ),
-
                       Card_Principal(icone: Icons.attach_money_sharp, texto: "Cadastrar", cor: AppColors.green, index: 0,),
-                      Card_Principal(icone: Icons.text_snippet_sharp, texto: "Historico", cor: AppColors.lightRed, index: 1,)
+                      Card_Principal(icone: Icons.text_snippet_sharp, texto: "Histórico", cor: AppColors.lightRed, index: 1,)
 
-              ],
-                ),
+                              ],
+                  ),
               )
          );
 

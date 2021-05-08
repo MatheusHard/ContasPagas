@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pagamento_de_contas/utils/core/app_colors.dart';
+import 'package:pagamento_de_contas/utils/core/app_gradients.dart';
 import 'package:pagamento_de_contas/utils/core/app_images.dart';
 import 'package:pagamento_de_contas/utils/core/app_text_styles.dart';
 import 'package:pagamento_de_contas/helper/db_helper.dart';
@@ -70,7 +71,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
       );
     }else{
       return Image.asset(
-        AppImages.no_camera_icon,
+        AppImages.no_image,
         width: 250,
         height: 250,
         fit: BoxFit.cover,
@@ -195,61 +196,124 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
            Padding(
              padding: const EdgeInsets.symmetric(horizontal: 25),
              child: Center(
-
                  child:  SingleChildScrollView(
 
                    child: Column(
                      mainAxisAlignment: MainAxisAlignment.center,
-
                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20),
+                          child: Container(
+                          decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.border),
+                          borderRadius: BorderRadius.circular(20)),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 15, top: 20),
+                                child: Text("Cadastre a Imagem da Conta",
+                                    style: AppTextStyles.heading15),
+                                    ),
+                              getImageWidget(),
 
-                      Container(
-                        decoration: BoxDecoration(
-                        border: Border.all(color: AppColors.border),
-                        borderRadius: BorderRadius.circular(20)),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 15, top: 20),
-                              child: Text("Cadastre a Imagem da Conta",
-                                  style: AppTextStyles.heading25),
-                            ),
+                              ///***********************/
+                              Row(
+                                mainAxisAlignment:  MainAxisAlignment.spaceBetween,
 
-                            getImageWidget(),
+                                children: [
 
-                            ///***********************/
-                            Row(
-                              mainAxisAlignment:  MainAxisAlignment.spaceBetween,
+                              /*********CAMERA BUTTON*********/
+                              Expanded(
+                                      child:
+                              GestureDetector(
 
-                              children: [
-                                Expanded(
-                                    child:
-                                    GestureDetector(
-                                      child:    Image.asset(AppImages.icons_camera_100,
-                                        height: 200.0,
-                                        width: 200.0,
-                                      ),
-                                      onTap: (){
-                                        _getImage(ImageSource.camera);
-                                      },
-                                    )),
-                                Expanded(
-                                    child:
-                                    MaterialButton(
-                                      child:   Image.asset(AppImages.icons_gallery_80,
-                                        height: 200.0,
-                                        width: 200.0,
-                                      ),
-                                      onPressed: (){
-                                        _getImage(ImageSource.gallery);
-                                      },
-                                    )
+                              child: Container(
+                              decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50)),
+                              height: 70,
+                              width: 70,
+                              child: Stack(
+                                     clipBehavior: Clip.none,
+                                     children: [
 
-                                )
-                              ],
+                                           Center(child:
+                                           Icon(
+                                               Icons.camera_alt_rounded,
+                                               color: AppColors.black,
+                                               size: 35,),),
 
-                            ),
-                          ],
+                                            Align(
+                                                   alignment: Alignment(0, 2.0),
+                                                   child:
+                                                   Padding(
+                                                     padding: const EdgeInsets.only(bottom: 20),
+                                                     child: Text("Camera", style: AppTextStyles.bodyBold,),
+                                                           )
+                                                    )
+                                                 ],
+                                               ),
+                                             ),
+
+                                           onTap: () {
+                                             _getImage(ImageSource.camera);
+
+                                           } //
+                                       )),
+
+                                  /*********GALERIA BUTTON*********/
+                                  Expanded(
+                                      child:
+                                      GestureDetector(
+
+                                        child: Container(
+
+                                          decoration: BoxDecoration(
+
+                                              borderRadius: BorderRadius.circular(50)),
+                                          height: 70,
+                                          width: 70,
+                                          child: Stack(
+                                            clipBehavior: Clip.none,
+                                            children: [
+
+                                              Center(child:
+                                              Icon(
+                                                Icons.image_rounded,
+                                                color: AppColors.black,
+                                                size: 35,),),
+
+                                              Align(
+                                                  alignment: Alignment(0, 2.0),
+                                                  child:
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(bottom: 20),
+                                                    child: Text("Galeria", style: AppTextStyles.bodyBold,),
+                                                  ))
+                                            ],
+                                          ),
+                                        ),
+
+                                        onTap: () {
+                                          _getImage(ImageSource.gallery);
+
+                                        } //
+                                      )
+
+
+                                    /*  MaterialButton(
+                                        child:   Image.asset(AppImages.icons_gallery_80,
+                                          height: 200.0,
+                                          width: 200.0,
+                                        ),
+                                        onPressed: (){
+                                          _getImage(ImageSource.gallery);
+                                        },
+                                     )*/
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 

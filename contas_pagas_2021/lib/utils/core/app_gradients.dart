@@ -18,4 +18,10 @@ class AppGradients {
     center: Alignment.center,
     radius: 0.5,
   );
+
+  static final phoenix = FlutterGradients.phoenixStart(
+    type: GradientType.sweep,
+    center: Alignment.center,
+    radius: 0.5,
+  );
 }
