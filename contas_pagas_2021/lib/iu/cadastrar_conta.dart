@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pagamento_de_contas/home/widgets/appbar/app_bar_widget.dart';
 import 'package:pagamento_de_contas/utils/core/app_colors.dart';
 import 'package:pagamento_de_contas/utils/core/app_gradients.dart';
 import 'package:pagamento_de_contas/utils/core/app_images.dart';
@@ -148,7 +149,6 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
     _myFocusNode = FocusNode();
     _myFocusNode_2 = FocusNode();
     super.initState();
-
   }
 
   /************DropDown Tipo de Conta************/
@@ -161,16 +161,13 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
     for(Tipo tipo in tipos){
       items.add(
           DropdownMenuItem(
-
             value: tipo,
             child: Center(
               child: _validarTextoDropdownTipo(tipo.id, tipo.descricao_tipo),
                ),
             ),
-
-      );
-
-    }
+         );
+     }
     return items;
   }
 
@@ -180,18 +177,12 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
-        title: Text("Cadastrar Conta"),
-        centerTitle: true,
-      ),
-
-       body: Stack(
+    key: _scaffoldKey,
+    appBar: AppBarWidget(),
+    body: Stack(
          children: [
            Padding(
              padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -240,19 +231,19 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                                            Icon(
                                                Icons.camera_alt_rounded,
                                                color: AppColors.black,
-                                               size: 35,),),
+                                               size: 20,),),
 
                                             Align(
                                                    alignment: Alignment(0, 2.0),
                                                    child:
-                                                   Padding(
-                                                     padding: const EdgeInsets.only(bottom: 20),
-                                                     child: Text("Camera", style: AppTextStyles.bodyBold,),
-                                                           )
-                                                    )
-                                                 ],
-                                               ),
-                                             ),
+                                                         Padding(
+                                                           padding: const EdgeInsets.only(bottom: 20),
+                                                           child: Text("Camera", style: AppTextStyles.bodyBold,),
+                                                                 )
+                                                             )
+                                                         ],
+                                                       ),
+                                                     ),
 
                                            onTap: () {
                                              _getImage(ImageSource.camera);
@@ -261,6 +252,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                                        )),
 
                                   /*********GALERIA BUTTON*********/
+
                                   Expanded(
                                       child:
                                       GestureDetector(

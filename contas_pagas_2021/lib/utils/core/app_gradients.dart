@@ -24,4 +24,10 @@ class AppGradients {
     center: Alignment.center,
     radius: 0.5,
   );
+
+  static final glass_water = FlutterGradients.glassWater(
+    type: GradientType.linear,
+    center: Alignment.center,
+    radius: 0.0,
+  );
 }

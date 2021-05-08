@@ -13,15 +13,11 @@ class MenuItemConta {
   static List<MenuItemConta> menuItens = [
     new MenuItemConta(1, "Editar", Icon(Icons.update_rounded)),
     new MenuItemConta(2, "Excluir", Icon(Icons.delete_rounded))
-
-
   ];
-
 
    String get menuText => _menuText;
    Icon get menuIcon => _menuIcon;
    int get id => _id;
-
 }
 
 

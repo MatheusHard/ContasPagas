@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pagamento_de_contas/home/widgets/appbar/app_bar_widget.dart';
 import 'package:pagamento_de_contas/utils/core/app_colors.dart';
 import 'package:pagamento_de_contas/utils/core/app_gradients.dart';
 import 'package:pagamento_de_contas/utils/core/app_text_styles.dart';
@@ -33,11 +34,8 @@ class _Listar_ContasState extends State<Listar_Contas> {
   Widget build(BuildContext context) {
     return  Scaffold(
         //key: _scaffoldKey,
-        appBar: AppBar(
-        title: Text("Lista de Pagamentos"),
-        backgroundColor: Colors.teal,
-        centerTitle: true,
-    ),
+        appBar: AppBarWidget(),
+
 
     body:  Center(
       child: Column(
@@ -57,7 +55,7 @@ class _Listar_ContasState extends State<Listar_Contas> {
                             child: Container(
                               height: 136,
                                 decoration: BoxDecoration(
-                                  gradient: AppGradients.nuvem,
+                                  gradient: AppGradients.glass_water,
                                   border: Border.all(
                                     color: AppColors.border
                                   ),
@@ -92,11 +90,11 @@ class _Listar_ContasState extends State<Listar_Contas> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
 
-                                                  Text("Tipo: ${conta.tipo.descricao_tipo}",
+                                                  Text("TIPO: ${conta.tipo.descricao_tipo.toUpperCase()}",
                                                     style: AppTextStyles.heading),
-                                                  Text("Data: ${Utils.formatarData(conta.dataHora, 1)}",
+                                                  Text("DATA: ${Utils.formatarData(conta.dataHora, 1)}",
                                                     style: AppTextStyles.heading15),
-                                                  Text("Valor: ${conta.valor.toString()}",
+                                                  Text("VALOR: ${conta.valor.toString()}",
                                                     style: AppTextStyles.heading15),
                                                 ],
                                               ),
@@ -106,27 +104,31 @@ class _Listar_ContasState extends State<Listar_Contas> {
 
                                      /******************MENU CARD*****************/
 
-                                     /*   PopupMenuButton(
-                                          onSelected: (value){
-                                            _choiceAction(value, conta);
-                                        } ,
-                                          itemBuilder: (BuildContext context){
-                                            return MenuItemConta.menuItens.map((e) {
-                                              return PopupMenuItem(
-                                                  value: e,
-                                                  child:
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                                        mainAxisSize: MainAxisSize.min,
-                                                     children: [
-                                                       Text(e.menuText),
-                                                        e.menuIcon
-                                                     ],
-                                                      )
-                                              );
-                                            }).toList();
-                                          },
-                                        )*/
+                                      Align(
+                                        alignment: Alignment.topRight,
+                                            child:
+                                            PopupMenuButton(
+                                            onSelected: (value){
+                                              _choiceAction(value, conta);
+                                          } ,
+                                            itemBuilder: (BuildContext context){
+                                              return MenuItemConta.menuItens.map((e) {
+                                                return PopupMenuItem(
+                                                    value: e,
+                                                    child:
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                                          mainAxisSize: MainAxisSize.min,
+                                                       children: [
+                                                         Text(e.menuText),
+                                                          e.menuIcon
+                                                       ],
+                                                        )
+                                                );
+                                              }).toList();
+                                            },
+                                          ),
+                                       )
                               ],
                             ),
                                 ),

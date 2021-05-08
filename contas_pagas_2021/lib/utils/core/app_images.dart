@@ -1,4 +1,5 @@
 class AppImages {
+
   static String get hierarchy => "assets/images/hierarchy.png";
   static String get data => "assets/images/data.png";
   static String get laptop => "assets/images/laptop.png";
@@ -14,13 +15,5 @@ class AppImages {
   static String get icons_gallery_80 => "assets/images/icons_gallery_80.png";
   static String get no_camera_icon => "assets/images/no_camera_icon.png";
   static String get no_image => "assets/images/no_image.png";
-
-
-
-
-
-
-
-
 
 }
