@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:pagamento_de_contas/home/widgets/appbar/app_bar_widget.dart';
+import 'package:pagamento_de_contas/iu/widgets/appbar/app_bar_widget.dart';
 import 'package:pagamento_de_contas/utils/core/app_colors.dart';
 import 'package:pagamento_de_contas/utils/core/app_gradients.dart';
 import 'package:pagamento_de_contas/utils/core/app_images.dart';
@@ -37,8 +37,10 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
   final _valorController = TextEditingController();
   final _dataController = TextEditingController();
   final _picker = ImagePicker();
+  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-/********RECEBENDO DO CONTRUTOR************/
+
+  /********RECEBENDO DO CONSTRUTOR************/
 
   _Cadastrar_ContaState(Conta conta){
   this._conta = conta;
@@ -231,7 +233,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                                            Icon(
                                                Icons.camera_alt_rounded,
                                                color: AppColors.black,
-                                               size: 20,),),
+                                               size: 35,),),
 
                                             Align(
                                                    alignment: Alignment(0, 2.0),
@@ -260,8 +262,7 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                                         child: Container(
 
                                           decoration: BoxDecoration(
-
-                                              borderRadius: BorderRadius.circular(50)),
+                                          borderRadius: BorderRadius.circular(50)),
                                           height: 70,
                                           width: 70,
                                           child: Stack(
@@ -291,16 +292,6 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                                         } //
                                       )
 
-
-                                    /*  MaterialButton(
-                                        child:   Image.asset(AppImages.icons_gallery_80,
-                                          height: 200.0,
-                                          width: 200.0,
-                                        ),
-                                        onPressed: (){
-                                          _getImage(ImageSource.gallery);
-                                        },
-                                     )*/
                                   )
                                 ],
                               ),
@@ -308,9 +299,6 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                           ),
                         ),
                       ),
-
-
-
 
                        /********DROP TIPOS*********/
 
@@ -335,11 +323,16 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                              ),
                            ),
 
-                       /*************VALOR*************/
+                       /*************FORM*************/
+                Form(
+               key: _formKey,
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.stretch,
+                 children: <Widget>[                       /*************VALOR*************/
 
                        Padding(
                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                         child: TextField(
+                         child: TextFormField(
 
                            keyboardType: TextInputType.number,
                            controller: _valorController,
@@ -348,17 +341,24 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                                hintText: 'Valor',
                                icon: Icon(Icons.attach_money, color: Colors.green,)
                            ),
+
+                           validator:  (value){
+                             if(value.isEmpty || value == ""){
+                               _myFocusNode.requestFocus();
+                               return "Digite o valor";
+                             }
+                             return null;
+                           },
                          ),
                        ),
 
                        /*************DATA_HORA*************/
                        Padding(
                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                         child: TextField(
+                         child: TextFormField(
                            readOnly: true,
 
                            onTap: (){
-                             FocusScope.of(context).requestFocus(new FocusNode());
 
                              showDatePicker(
                                  context: context,
@@ -381,20 +381,38 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
                              icon: Icon(Icons.date_range),
                              hintText :  "Digite o vecimento",
                            ),
+
+                           validator:  (value){
+                             if(value.isEmpty || value == ""){
+                               _myFocusNode.requestFocus();
+                               return "Escolha a data vencimento!!!";
+                             }
+                             return null;
+                           },
                          ),
 
                        ),
+                      ]
+                    )
+                ),
+
                       SizedBox(width: 30,height: 30,),
 
-                       /*********BUTTON CADASTRAR*********/
+                   /*********BUTTON CADASTRAR*********/
 
                        Padding(
                          padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                          child: Center(
                            child: ElevatedButton(
                             onPressed: () {
-                              _cadastrarConta();
-                         },
+                                        if(_selectedFile != null)  {
+                                          if(_formKey.currentState.validate()) {
+                                             _cadastrarConta();
+                                               }
+                                            }else{
+                                            Utils.showDefaultSnackbar(_scaffoldKey, "Foto obrigatória!!! ");
+                                          }
+                                        },
                           style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.zero,
                           shape: RoundedRectangleBorder(
@@ -454,43 +472,17 @@ class _Cadastrar_ContaState extends State<Cadastrar_Conta> {
 
     String file;
     _idTipo = _selectedTipo.id;
-    //_idTipo = 2;
     print(_idTipo.toString());
 
     setState(() {
-     // if (_imageFile != null){
-      if(_selectedFile != null){
-         /* && _dataController.value.toString() != ""
-          && _dataController.value.toString() != ""
-            */
-if(_valorController.value.text.toString() != "" && _valorController.value.text.toString() != null) {
-  _valorConta = double.parse(_valorController.text);
-  //file = Utils.base64String(_imageFile.readAsBytesSync());
-  file = Utils.base64String(_selectedFile.readAsBytesSync());
-  _db.insertConta(new Conta(_valorConta, _dateTime.toString(), file, _idTipo, null));
-
-  clearControllers();
-  Utils.showDefaultSnackbar(_scaffoldKey, "Cadastro realizado com sucesso!!!");
-}else{
-  Utils.showDefaultSnackbar(_scaffoldKey, "Digite o valor!!! ");
-
-}
-    }else{
-    Utils.showDefaultSnackbar(_scaffoldKey, "Foto obrigatória!!! ");
-
-    }
-    });
-    //int res = await _db.insertConta(new Conta(_valorConta, _dateTime.toString(), file));
-
-
-
-    /*if(res > 0){
-    Utils.showDefaultSnackbar(_scaffoldKey, "Cadastro realizado com sucesso!!!");
-    }else{
-      Utils.showDefaultSnackbar(_scaffoldKey, "Não foi possível realizar o cadastro");
-    }*/
-
-  }
+          _valorConta = double.parse(_valorController.text);
+          file = Utils.base64String(_selectedFile.readAsBytesSync());
+          _db.insertConta(new Conta(
+          _valorConta, _dateTime.toString(), file, _idTipo, null));
+          clearControllers();
+          Utils.showDefaultSnackbar(_scaffoldKey, "Cadastro realizado com sucesso!!!");
+                });
+               }
 
   clearControllers(){
     _valorController.clear();
@@ -516,9 +508,7 @@ if(_valorController.value.text.toString() != "" && _valorController.value.text.t
 
   }
 
-
   Text _validarTextoDropdownTipo(int id, String texto){
-
     if(id == 1) {
       texto = "ESCOLHA UMA OPÇÃO".toUpperCase();
       return Text(

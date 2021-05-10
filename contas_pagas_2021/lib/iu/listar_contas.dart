@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pagamento_de_contas/home/widgets/appbar/app_bar_widget.dart';
+import 'package:pagamento_de_contas/iu/widgets/appbar/app_bar_widget.dart';
 import 'package:pagamento_de_contas/utils/core/app_colors.dart';
 import 'package:pagamento_de_contas/utils/core/app_gradients.dart';
 import 'package:pagamento_de_contas/utils/core/app_text_styles.dart';
